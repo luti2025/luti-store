@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-premium-black: #050505;
+  --color-neon-fuchsia: #FF00FF;
+  --color-neon-orange: #FF8C00;
+  --color-dark-grey: #1A1A1A;
+  
+  --shadow-neon-pink: 0 0 20px rgba(255, 0, 255, 0.4);
+  --shadow-neon-orange: 0 0 20px rgba(255, 140, 0, 0.4);
+}
+
+body {
+  background-color: var(--color-premium-black);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
