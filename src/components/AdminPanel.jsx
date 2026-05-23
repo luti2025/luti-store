@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { Plus, Trash2, Save } from 'lucide-react';
+import { Plus, Trash2, Upload } from 'lucide-react';
 
 export const AdminPanel = () => {
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', image_url: '', category: '' });
+  const [newProduct, setNewProduct] = useState({ name: '', price: '', category: '' });
+  const [imageFile, setImageFile] = useState(null); // Para guardar el archivo seleccionado
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => { fetchProducts(); }, []);
 
@@ -13,12 +15,55 @@ export const AdminPanel = () => {
     setProducts(data || []);
   }
 
+  // FUNCIÓN PARA SUBIR LA IMAGEN A SUPABASE STORAGE
+  async function uploadImage(file) {
+    const fileExt = file.name.split('.').pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from('productos') // El nombre del bucket que creaste
+      .upload(filePath, file);
+
+    if (uploadError) throw uploadError;
+
+    // Obtener la URL pública de la imagen subida
+    const { data: { publicUrl } } = supabase.storage
+      .from('productos')
+      .getPublicUrl(filePath);
+
+    return publicUrl;
+  }
+
   async function handleAddProduct(e) {
     e.preventDefault();
-    const { error } = await supabase.from('products').insert([newProduct]);
-    if (!error) {
-      setNewProduct({ name: '', price: '', image_url: '', category: '' });
-      fetchProducts();
+    setUploading(true);
+
+    try {
+      let finalImageUrl = "";
+
+      // 1. Si hay un archivo, subirlo primero
+      if (imageFile) {
+        finalImageUrl = await uploadImage(imageFile);
+      } else {
+        alert("Por favor, selecciona una imagen");
+        return;
+      }
+
+      // 2. Guardar el producto en la DB con la URL de la imagen
+      const { error } = await supabase.from('products').insert([
+        { ...newProduct, image_url: finalImageUrl }
+      ]);
+
+      if (!error) {
+        setNewProduct({ name: '', price: '', category: '' });
+        setImageFile(null);
+        fetchProducts();
+      }
+    } catch (error) {
+      alert("Error al subir la imagen: " + error.message);
+    } finally {
+      setUploading(false);
     }
   }
 
@@ -34,7 +79,6 @@ export const AdminPanel = () => {
           Panel de <span className="text-neon-fuchsia">Control</span>
         </h2>
 
-        {/* Formulario para agregar productos */}
         <form onSubmit={handleAddProduct} className="bg-dark-grey p-6 rounded-3xl border border-white/10 mb-12 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
             <label className="text-gray-400 text-xs uppercase font-bold">Nombre del Producto</label>
@@ -52,24 +96,38 @@ export const AdminPanel = () => {
               type="number" 
               value={newProduct.price} 
               onChange={(e) => setNewProduct({...newProduct, price: e.target.value})} 
-              placeholder="Ej: 15" required
+              placeholder="Ej: 15000" required
             />
           </div>
+          
           <div className="flex flex-col gap-2 md:col-span-2">
-            <label className="text-gray-400 text-xs uppercase font-bold">URL de la Imagen</label>
-            <input 
-              className="bg-premium-black p-3 rounded-xl text-white border border-white/10 outline-none focus:border-neon-fuchsia" 
-              value={newProduct.image_url} 
-              onChange={(e) => setNewProduct({...newProduct, image_url: e.target.value})} 
-              placeholder="https://..." 
-            />
+            <label className="text-gray-400 text-xs uppercase font-bold">Imagen del Producto</label>
+            <div className="flex items-center gap-4">
+              <input 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files[0])}
+                className="hidden" 
+                id="file-upload"
+              />
+              <label 
+                htmlFor="file-upload" 
+                className="cursor-pointer bg-premium-black p-4 rounded-xl border border-dashed border-white/20 text-gray-400 hover:border-neon-fuchsia transition-all flex items-center gap-2 w-full justify-center"
+              >
+                <Upload size={20} />
+                {imageFile ? imageFile.name : "Seleccionar Imagen"}
+              </label>
+            </div>
           </div>
-          <button className="md:col-span-2 py-4 bg-neon-fuchsia text-white font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-neon-orange transition-all uppercase text-sm">
-            <Plus size={18} /> Agregar Producto
+
+          <button 
+            disabled={uploading}
+            className="md:col-span-2 py-4 bg-neon-fuchsia text-white font-black rounded-2xl flex items-center justify-center gap-2 hover:bg-neon-orange transition-all uppercase text-sm disabled:opacity-50"
+          >
+            {uploading ? "Subiendo..." : <><Plus size={18} /> Agregar Producto</>}
           </button>
         </form>
 
-        {/* Lista de productos actuales */}
         <div className="grid gap-4">
           <h3 className="text-white font-bold uppercase text-sm tracking-widest mb-4">Productos en Tienda</h3>
           {products.map(p => (
