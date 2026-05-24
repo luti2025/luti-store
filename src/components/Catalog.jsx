@@ -20,7 +20,7 @@ export const Catalog = () => {
   }, []);
 
   return (
-    <section id="catalog" className="py-20 bg-premium-black px-6">
+    <section id="catalogo" className="py-20 bg-premium-black px-6">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter">
