@@ -15,7 +15,7 @@ export const AdminPanel = () => {
   const [uploading, setUploading] = useState(false);
 
   // LA CONTRASEÑA MAESTRA (Cámbiala por la que tú quieras)
-  const ADMIN_PASSWORD = "Luti131820"; 
+  const ADMIN_PASSWORD = "Lutiadmin131820"; 
 
   useEffect(() => { 
     if (isAuthenticated) {
