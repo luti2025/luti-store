@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 
-// Importamos los Componentes
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Catalog } from './components/Catalog';
@@ -9,7 +8,6 @@ import { Cart } from './components/Cart';
 import { FAQ } from './components/FAQ';
 import { Benefits } from './components/Benefits';
 
-// Importamos las Páginas
 import { OrderTracking } from './pages/OrderTracking';
 import { AdminPanel } from './pages/AdminPanel';
 
@@ -18,12 +16,8 @@ function App() {
     <CartProvider>
       <Router>
         <div className="min-h-screen bg-premium-black text-white selection:bg-neon-fuchsia selection:text-white">
-          
-          {/* El Navbar siempre está visible */}
           <Navbar />
-
           <Routes>
-            {/* Página Principal */}
             <Route path="/" element={
               <>
                 <Hero />
@@ -33,14 +27,9 @@ function App() {
                 <FAQ />
               </>
             } />
-
-            {/* Página de Seguimiento */}
             <Route path="/seguimiento" element={<OrderTracking />} />
-
-            {/* Página de Administrador */}
             <Route path="/admin" element={<AdminPanel />} />
           </Routes>
-
         </div>
       </Router>
     </CartProvider>
