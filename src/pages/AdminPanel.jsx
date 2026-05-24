@@ -15,7 +15,7 @@ export const AdminPanel = () => {
   const [uploading, setUploading] = useState(false);
 
   // LA CONTRASEÑA MAESTRA (Cámbiala por la que tú quieras)
-  const ADMIN_PASSWORD = "Lutiadmin131820"; 
+  const ADMIN_PASSWORD = "Luti2024!"; 
 
   useEffect(() => { 
     if (isAuthenticated) {
@@ -116,7 +116,7 @@ export const AdminPanel = () => {
             Panel de <span className="text-neon-fuchsia">Control</span>
           </h2>
           <button 
-            onClick={() la isAuthenticated(false)} 
+            onClick={() => setIsAuthenticated(false)} 
             className="text-xs text-gray-500 hover:text-white transition-all uppercase font-bold"
           >
             Cerrar Sesión
