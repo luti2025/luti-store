@@ -11,7 +11,7 @@ export const Hero = () => {
         </p>
 
         <h1 className="text-6xl md:text-8xl font-black mb-6 leading-tight tracking-tighter text-white">
-          LUANA <span className="text-neon-fuchsia">&</span> TIZIANO
+          LUANA <span className="text-neon-fuchsia">&</span> TIZIANO TEST
         </h1>
 
         <p className="max-w-2xl text-zinc-400 text-lg md:text-xl mb-12 leading-relaxed">
