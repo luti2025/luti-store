@@ -29,6 +29,7 @@ function App() {
             } />
             <Route path="/seguimiento" element={<OrderTracking />} />
             <Route path="/admin" element={<AdminPanel />} />
+            import { ChatAssistant } from './components/ChatAssistant';
           </Routes>
         </div>
       </Router>
