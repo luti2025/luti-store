@@ -5,7 +5,9 @@ function App() {
       <p className="text-xl text-zinc-400 italic">Estamos preparando algo increíble. <br/> Volvemos muy pronto.</p>
       <div className="mt-8 animate-bounce">
         <span className="text-4xl">🧵</span>
-      </div>
+      </div_div>
     </div>
   );
 }
+
+export default App; // <--- ESTA ES LA LÍNEA QUE FALTABA
