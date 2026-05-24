@@ -1,13 +1,50 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
+
+// Importamos los Componentes
+import { Navbar } from './components/Navbar';
+import { Hero } from './components/Hero';
+import { Catalog } from './components/Catalog';
+import { Cart } from './components/Cart';
+import { FAQ } from './components/FAQ';
+import { Benefits } from './components/Benefits';
+
+// Importamos las Páginas
+import { OrderTracking } from './pages/OrderTracking';
+import { AdminPanel } from './pages/AdminPanel';
+
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center text-center px-6">
-      <h1 className="text-5xl font-black text-yellow-400 mb-4">LUANA & TIZIANO</h1>
-      <p className="text-xl text-zinc-400 italic">Estamos preparando algo increíble. <br/> Volvemos muy pronto.</p>
-      <div className="mt-8 animate-bounce">
-        <span className="text-4xl">🧵</span>
-      </div>
-    </div>
+    <CartProvider>
+      <Router>
+        <div className="min-h-screen bg-premium-black text-white selection:bg-neon-fuchsia selection:text-white">
+          
+          {/* El Navbar siempre está visible */}
+          <Navbar />
+
+          <Routes>
+            {/* Página Principal */}
+            <Route path="/" element={
+              <>
+                <Hero />
+                <Benefits />
+                <Catalog />
+                <Cart />
+                <FAQ />
+              </>
+            } />
+
+            {/* Página de Seguimiento */}
+            <Route path="/seguimiento" element={<OrderTracking />} />
+
+            {/* Página de Administrador */}
+            <Route path="/admin" element={<AdminPanel />} />
+          </Routes>
+
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 
-export default App; // <--- ESTA ES LA LÍNEA QUE FALTABA
+export default App;
