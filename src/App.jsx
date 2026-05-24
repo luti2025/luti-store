@@ -1,40 +1,11 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { Catalog } from './components/Catalog';
-import { FAQ } from './components/FAQ'; // <--- 1. Volvemos a importar la FAQ
-import { Cart } from './components/Cart';
-import { OrderTracking } from './components/OrderTracking';
-import { AdminPanel } from './components/AdminPanel';
-import { CartProvider } from './context/CartContext';
-
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <div className="min-h-screen bg-premium-black">
-          <Navbar />
-          <Routes>
-            {/* Página de Inicio: Portada + Catálogo + FAQ + Carrito */}
-            <Route path="/" element={
-              <>
-                <Hero />
-                <Catalog />
-                <FAQ /> {/* <--- 2. La devolvemos a su lugar */}
-                <Cart />
-              </>
-            } />
-            
-            {/* Página de Seguimiento */}
-            <Route path="/seguimiento" element={<OrderTracking />} />
-            
-            {/* Página del Administrador */}
-            <Route path="/admin" element={<AdminPanel />} /> 
-          </Routes>
-        </div>
-      </Router>
-    </CartProvider>
+    <div className="min-h-screen bg-black text-white flex flex-col justify-center items-center text-center px-6">
+      <h1 className="text-5xl font-black text-yellow-400 mb-4">LUANA & TIZIANO</h1>
+      <p className="text-xl text-zinc-400 italic">Estamos preparando algo increíble. <br/> Volvemos muy pronto.</p>
+      <div className="mt-8 animate-bounce">
+        <span className="text-4xl">🧵</span>
+      </div>
+    </div>
   );
 }
-
-export default App;
