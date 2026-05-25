@@ -9,7 +9,8 @@ export const Hero = () => {
         
         {/* --- AQUÍ VA EL LOGO --- */}
         <img 
-          src="https://vputwxsrhjyykjhnzanf.supabase.co/storage/v1/object/public/productos/luti.png" 
+           src="/luti.png"
+
           alt="Logo Luana & Tiziano" 
           className="h-40 md:h-56 w-auto object-contain mb-8 animate-fade-in shadow-2xl rounded-full" 
         />

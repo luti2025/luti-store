@@ -1,7 +1,7 @@
 <Link to="/" className="flex items-center gap-3 group">
   <img 
-    src="https://vputwxsrhjyykjhnzanf.supabase.co/storage/v1/object/public/productos/luti.png" 
-    alt="Logo Luana & Tiziano" 
+   src="/luti.png"
+ alt="Logo Luana & Tiziano" 
     className="h-12 w-12 rounded-full object-contain transition-transform group-hover:scale-110 border border-white/10 shadow-lg"
   />
   <div className="flex flex-col leading-none">
