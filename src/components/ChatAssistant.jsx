@@ -1,62 +1,106 @@
-import { useState } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import React, { useState } from 'react';
+import { MessageCircle, X, Send, Bot } from 'lucide-react';
 
-export function ChatAssistant() {
+export const ChatAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState('');
+  const [step, setStep] = useState(0);
+  const [userData, setUserData] = useState({ producto: '', cantidad: '', detalle: '' });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setMessage('');
+  const steps = [
+    {
+      id: 0,
+      bot: "¡Hola! Bienvenid@ a LUANA & TIZIANO. 🧵 Soy tu asistente virtual. ¿Qué quieres personalizar hoy?",
+      options: ["Remeras", "Gorras", "Bordados", "Otro"],
+      key: "producto"
+    },
+    {
+      id: 1,
+      bot: "¡Excelente elección! Para mantener nuestra calidad premium, trabajamos con un mínimo de 10 unidades. ¿Cuántas necesitas?",
+      options: ["10 unidades", "20 unidades", "50+ unidades", "Otro"],
+      key: "cantidad"
+    },
+    {
+      id: 2,
+      bot: "Perfecto. Para darte un presupuesto exacto, ¿tienes el diseño listo o necesitas que nosotros lo creemos?",
+      options: ["Ya tengo el diseño", "Necesito diseño", "No estoy seguro"],
+      key: "detalle"
+    },
+    {
+      id: 3,
+      bot: "¡Genial! He preparado tu pedido. Haz clic en el botón abajo para enviarme toda la información por WhatsApp y coordinamos la entrega.",
+      isFinal: true
+    }
+  ];
+
+  const handleOptionClick = (option) => {
+    const currentStep = steps[step];
+    setUserData({ ...userData, [currentStep.key]: option });
+    setStep(step + 1);
+  };
+
+  const sendWhatsApp = () => {
+    const phone = "+542995093669"; 
+    const message = `Hola LUTI! El asistente me ayudó con mi pedido:\n\n` +
+                    `📦 Producto: ${userData.producto}\n` +
+                    `🔢 Cantidad: ${userData.cantidad}\n` +
+                    `🎨 Detalle: ${userData.detalle}\n\n` +
+                    `Me gustaría coordinar el presupuesto.`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-100">
+    <div className="fixed bottom-6 right-6 z-[100]">
       {!isOpen && (
-        <button
+        <button 
           onClick={() => setIsOpen(true)}
-          className="bg-neon-fuchsia p-4 rounded-full shadow-neon-pink hover:scale-110 transition-all"
-          aria-label="Abrir chat"
+          className="bg-neon-fuchsia p-4 rounded-full shadow-lg hover:scale-110 transition-all animate-bounce"
         >
           <MessageCircle className="text-white" size={30} />
         </button>
       )}
 
       {isOpen && (
-        <div className="bg-dark-grey w-80 rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-            <span className="font-semibold">Asistente</span>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-white/80 hover:text-white"
-              aria-label="Cerrar chat"
-            >
+        <div className="bg-dark-grey w-80 h-[500px] rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden">
+          <div className="bg-neon-fuchsia p-4 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <Bot className="text-white" size={24} />
+              <span className="text-white font-black uppercase text-xs tracking-widest">LUTI AI Assistant</span>
+            </div>
+            <button onClick={() => setIsOpen(false)} className="text-white hover:rotate-90 transition-all">
               <X size={20} />
             </button>
           </div>
 
-          <div className="p-4 text-sm text-white/80">
-            <p>Hola, ¿en qué puedo ayudarte?</p>
-          </div>
+          <div className="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
+            <div className="flex gap-2 max-w-[80%]">
+              <div className="bg-premium-black p-3 rounded-2xl rounded-tl-none border border-white/10 text-zinc-300 text-sm">
+                {steps[step]?.bot}
+              </div>
+            </div>
 
-          <form onSubmit={handleSubmit} className="flex items-center gap-2 p-4 border-t border-white/10">
-            <input
-              type="text"
-              value={message}
-              onChange={(event) => setMessage(event.target.value)}
-              placeholder="Escribe un mensaje"
-              className="flex-1 rounded-full border border-white/10 bg-black/50 px-4 py-2 text-sm text-white outline-none focus:border-neon-fuchsia"
-            />
-            <button
-              type="submit"
-              className="rounded-full bg-neon-fuchsia p-2 text-black hover:bg-fuchsia-400"
-              aria-label="Enviar mensaje"
-            >
-              <Send size={16} />
-            </button>
-          </form>
+            <div className="flex flex-col gap-2 mt-2">
+              {steps[step]?.options?.map((opt) => (
+                <button 
+                  key={opt}
+                  onClick={() => handleOptionClick(opt)}
+                  className="bg-white/5 hover:bg-neon-fuchsia text-white text-left p-3 rounded-xl border border-white/10 text-xs transition-all"
+                >
+                  {opt}
+                </button>
+              ))}
+              
+              {steps[step]?.isFinal && (
+                <button 
+                  onClick={sendWhatsApp}
+                  className="bg-neon-fuchsia text-white p-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-neon-orange transition-all uppercase text-xs"
+                >
+                  <Send size={16} /> Enviar a WhatsApp
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
-}
+};
