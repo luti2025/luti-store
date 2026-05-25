@@ -10,6 +10,7 @@ import { Benefits } from './components/Benefits';
 
 import { OrderTracking } from './pages/OrderTracking';
 import { AdminPanel } from './pages/AdminPanel';
+import { ChatAssistant } from './components/ChatAssistant';
 
 function App() {
   return (
@@ -29,8 +30,8 @@ function App() {
             } />
             <Route path="/seguimiento" element={<OrderTracking />} />
             <Route path="/admin" element={<AdminPanel />} />
-            import { ChatAssistant } from './components/ChatAssistant';
           </Routes>
+          <ChatAssistant />
         </div>
       </Router>
     </CartProvider>
