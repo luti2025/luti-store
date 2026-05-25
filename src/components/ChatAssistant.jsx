@@ -49,7 +49,7 @@ export const ChatAssistant = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100]">
+    <div className="fixed bottom-6 right-6 z-100">
       {!isOpen && (
         <button 
           onClick={() => setIsOpen(true)}
@@ -60,23 +60,23 @@ export const ChatAssistant = () => {
       )}
 
       {isOpen && (
-        <div className="bg-dark-grey w-80 h-[500px] rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden">
+        <div className="bg-dark-grey w-80 h-500 rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden">
           <div className="bg-neon-fuchsia p-4 flex justify-between items-center">
             <div className="flex items-center gap-2">
               <Bot className="text-white" size={24} />
               <span className="text-white font-black uppercase text-xs tracking-widest">LUTI AI Assistant</span>
-            </div>
+            </div >
             <button onClick={() => setIsOpen(false)} className="text-white hover:rotate-90 transition-all">
               <X size={20} />
             </button>
-          </div>
+          </div >
 
           <div className="flex-1 p-4 overflow-y-auto space-y-4 flex flex-col">
             <div className="flex gap-2 max-w-[80%]">
               <div className="bg-premium-black p-3 rounded-2xl rounded-tl-none border border-white/10 text-zinc-300 text-sm">
                 {steps[step]?.bot}
-              </div>
-            </div>
+              </div >
+            </div >
 
             <div className="flex flex-col gap-2 mt-2">
               {steps[step]?.options?.map((opt) => (
@@ -97,10 +97,10 @@ export const ChatAssistant = () => {
                   <Send size={16} /> Enviar a WhatsApp
                 </button>
               )}
-            </div>
-          </div>
-        </div>
+            </div >
+          </div >
+        </div >
       )}
-    </div>
+    </div >
   );
 };
