@@ -6,6 +6,15 @@ export const Hero = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-neon-fuchsia/20 blur-[120px] rounded-full pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col items-center">
+        
+        {/* --- AQUÍ VA EL LOGO --- */}
+        <img 
+          src="https://vputwxsrhjyykjhnzanf.supabase.co/storage/v1/object/public/productos/luti.png" 
+          alt="Logo Luana & Tiziano" 
+          className="h-40 md:h-56 w-auto object-contain mb-8 animate-fade-in shadow-2xl rounded-full" 
+        />
+        {/* --- FIN DEL LOGO --- */}
+
         <p className="text-neon-fuchsia uppercase tracking-[6px] mb-6 text-xs font-bold animate-fade-in">
           Sublimados & Bordados Premium
         </p>
@@ -20,7 +29,7 @@ export const Hero = () => {
 
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <a
-            href="https://wa.me/5490000000000" 
+            href="https://wa.me/542995093669" 
             className="bg-neon-fuchsia text-white px-10 py-4 rounded-full font-black hover:bg-neon-orange transition-all duration-300 shadow-lg shadow-neon-fuchsia/20 uppercase text-sm tracking-widest"
           >
             Pedir Ahora
