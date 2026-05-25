@@ -1,23 +1,26 @@
 @import "tailwindcss";
 
-@theme {
-  --color-premium-black: #050505;
-  --color-neon-fuchsia: #FF00FF;
-  --color-neon-orange: #FF8C00;
-  --color-dark-grey: #1A1A1A;
-}
-
-/* Esto es un "truco" para obligar al navegador a pintar el fondo */
-* {
-  background-color: #050505 !important;
-  color: white !important;
-}
-
-/* Quitamos el bloqueo anterior para ver si el problema es el selector body */
+/* Forzamos el fondo negro y el texto blanco con CSS puro */
+/* Esto DEBE funcionar aunque Tailwind falle */
 html, body {
   background-color: #050505 !important;
-  color: white !important;
+  color: #ffffff !important;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
 }
+
+/* Definimos variables manuales para que el resto de la página las use */
+:root {
+  --premium-black: #050505;
+  --neon-fuchsia: #FF00FF;
+  --neon-orange: #FF8C00;
+  --dark-grey: #1A1A1A;
+}
+
+/* Para que las clases de Tailwind que usan variables sigan funcionando */
+.bg-premium-black { background-color: var(--premium-black) !important; }
+.text-neon-fuchsia { color: var(--neon-fuchsia) !important; }
+.bg-neon-fuchsia { background-color: var(--neon-fuchsia) !important; }
+.bg-dark-grey { background-color: var(--dark-grey) !important; }
+.text-neon-orange { color: var(--neon-orange) !important; }
