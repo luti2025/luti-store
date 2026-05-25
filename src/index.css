@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+theme {
   --color-premium-black: #050505;
   --color-neon-fuchsia: #FF00FF;
   --color-neon-orange: #FF8C00;
