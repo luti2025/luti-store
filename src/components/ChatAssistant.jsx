@@ -58,7 +58,7 @@ export const ChatAssistant = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] font-sans">
+    <div className="fixed bottom-6 right-z-100 font-sans">
       {/* BOTÓN FLOTANTE */}
       {!isOpen && (
         <button 
@@ -71,7 +71,7 @@ export const ChatAssistant = () => {
 
       {/* VENTANA DE CHAT */}
       {isOpen && (
-        <div className="bg-dark-grey w-80 h-[500px] rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden animate-fade-in">
+        <div className="bg-dark-grey w-80 h-500ps rounded-3xl border border-white/10 flex flex-col shadow-2xl overflow-hidden animate-fade-in">
           
           {/* HEADER */}
           <div className="bg-neon-fuchsia p-4 flex justify-between items-center">
