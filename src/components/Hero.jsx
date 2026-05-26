@@ -2,19 +2,19 @@ export const Hero = () => {
   return (
     <section className="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-premium-black relative overflow-hidden">
       
-      {/* Efecto de luz de fondo para darle profundidad */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-neon-fuchsia/20 blur-[120px] rounded-full pointer-events-none"></div>
+      {/* EFECTO DE LUZ DE FONDO - Ajustado para no tapar el logo */}
+      <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-neon-fuchsia/10 blur-[140px] rounded-full pointer-events-none"></div>
 
       <div className="relative z-10 flex flex-col items-center">
         
-        {/* --- AQUÍ VA EL LOGO --- */}
-        <img 
-           src="/luti.png"
-
-          alt="Logo Luana & Tiziano" 
-          className="h-40 md:h-56 w-auto object-contain mb-8 animate-fade-in shadow-2xl rounded-full" 
-        />
-        {/* --- FIN DEL LOGO --- */}
+        {/* LOGO PRINCIPAL - Con z-index alto y más espacio */}
+        <div className="relative z-20 mb-12 animate-fade-in">
+          <img 
+            src="/luti.png" 
+            alt="Logo Luana & Tiziano" 
+            className="h-48 md:h-64 w-auto object-contain drop-shadow-[0_0_30px_rgba(255,0,255,0.3)] transition-transform hover:scale-105 duration-500" 
+          />
+        </div>
 
         <p className="text-neon-fuchsia uppercase tracking-[6px] mb-6 text-xs font-bold animate-fade-in">
           Sublimados & Bordados Premium
